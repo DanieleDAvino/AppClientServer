@@ -19,6 +19,23 @@ public class ClientHandler implements Runnable {
             PrintWriter out = new PrintWriter(
                     socket.getOutputStream(), true);
 
+            out.println("inserisci username:");
+            out.println("INPUT:");
+            String username = in.readLine();
+
+            out.println("inserisci password:");
+            out.println("INPUT:");
+            String password = in.readLine();
+
+            if (!Server.users.containsKey(username) ||
+                    !Server.users.get(username).equals(password)) {
+                out.println("login fallito");
+                socket.close();
+                return;
+            }
+
+            out.println("login effettuato");
+
             out.println("SCRIVI oppure INDOVINA?");
             out.println("INPUT:");
             String ruolo = in.readLine();
