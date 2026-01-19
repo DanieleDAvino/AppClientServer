@@ -4,13 +4,15 @@ import java.util.*;
 
 public class Server {
 
+    //lista colori
     public static final List<String> COLORS =
             Arrays.asList("rosso", "arancione", "giallo", "verde", "blu", "indaco", "viola");
 
-    public static String secretColor = null;
-    public static String secretHash = null;
+    public static String secretColor = null;//colore scelto dall'utente
+    public static String secretHash = null;//colore scelto dall'utente ma in formato hash
 
 
+    //lista degli utenti che possono loggare
     public static Map<String, String> users = new HashMap<>();
     static {
         users.put("AlessioBillorosso", "AB0704");
@@ -20,13 +22,13 @@ public class Server {
     }
 
     public static void main(String[] args) throws Exception {
-        ServerSocket serverSocket = new ServerSocket(12345);
+        ServerSocket serverSocket = new ServerSocket(12345);//crea il server sulla porta 12345
         System.out.println("Server avviato");
 
-        while (true) {
-            Socket socket = serverSocket.accept();
+        while (true) {//il server resta in ascolto di nuove connessioni
+            Socket socket = serverSocket.accept();//accetta un client
             System.out.println("Nuovo client connesso: " + socket.getInetAddress());
-            new Thread(new ClientHandler(socket)).start();
+            new Thread(new ClientHandler(socket)).start();//ogni client viene gestito da un thread
         }
     }
 }
